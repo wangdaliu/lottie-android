@@ -110,12 +110,12 @@ public class ListFragment extends Fragment {
   }
 
   private void showFragment(Fragment fragment) {
-    getFragmentManager().beginTransaction()
-        .addToBackStack(null)
-        .setCustomAnimations(R.anim.slide_in_right, R.anim.hold, R.anim.hold, R.anim.slide_out_right)
-        .remove(this)
-        .replace(R.id.content_2, fragment)
-        .commit();
+//    getFragmentManager().beginTransaction()
+//        .addToBackStack(null)
+//        .setCustomAnimations(R.anim.slide_in_right, R.anim.hold, R.anim.hold, R.anim.slide_out_right)
+//        .remove(this)
+//        .replace(R.id.content_2, fragment)
+//        .commit();
   }
 
   private final class FileAdapter extends RecyclerView.Adapter<StringViewHolder> {

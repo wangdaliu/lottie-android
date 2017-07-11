@@ -2,9 +2,11 @@
 .gradle
 /local.properties
 /.idea/*
+/LottieSample/.idea/*
 !.idea/codeStyleSettings.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 *auto-save*
+local.properties

@@ -1,20 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
 
     <FrameLayout
-        android:id="@+id/content_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#EDDACE"
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/content_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/singer_shoes_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"
+            android:scaleType="centerInside"/>
 
-</FrameLayout>
+        <FrameLayout
+            android:id="@+id/body_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/singer_left_arm_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:scaleType="centerInside"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/singer_right_arm_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:scaleType="centerInside"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/singer_torso_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:scaleType="centerInside"/>
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/singer_head_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:scaleType="centerInside"/>
+
+            <View
+                android:id="@+id/eyebrow"
+                android:layout_width="50dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center"
+                android:background="#FC9B9B"
+                android:visibility="gone">
+
+            </View>
+        </FrameLayout>
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"/>
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
