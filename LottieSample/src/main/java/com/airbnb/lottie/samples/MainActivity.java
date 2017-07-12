@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -75,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
     leftArm.setAnimation("singer_left_arm.json");
     rightArm.setAnimation("singer_right_arm.json");
 
-    underHead.setAnimation("singer_head.json");
-    // underHead.setAnimation("singer_under_head.json");
-    // upperHead.setAnimation("singer_upper_head.json");
+    underHead.setAnimation("singer_under_head.json");
+    upperHead.setAnimation("singer_upper_head.json");
 
     addIdleAnimations();
 
@@ -90,16 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
     seekBar.setProgress((int) currentProgress);
 
-    torsoView.addAnimatorUpdateListener(
-        new ValueAnimator.AnimatorUpdateListener() {
-          @Override
-          public void onAnimationUpdate(ValueAnimator animation) {
-            currentProgress = animation.getAnimatedFraction() * 100;
-            // seekBar.setProgress((int) currentProgress);
-            updateEyeBrowPosition();
-          }
-        });
-
     seekBar.setMax(20);
     seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
       @Override
@@ -111,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
           leftArm.setProgress(currentProgress / 100f);
           rightArm.setProgress(currentProgress / 100f);
           underHead.setProgress(currentProgress / 100f);
-          // upperHead.setProgress(currentProgress / 100f);
-          // updateEyeBrowPosition();
+          upperHead.setProgress(currentProgress / 100f);
+          updateEyeBrowPosition();
         }
       }
 
