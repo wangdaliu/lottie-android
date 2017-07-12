@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EDDACE">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/singer_shoes_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:duplicateParentState="true"
+        android:scaleType="centerInside"/>
 
     <FrameLayout
+        android:id="@+id/body_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EDDACE">
+        android:layout_height="match_parent">
+
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/singer_shoes_view"
+            android:id="@+id/singer_left_arm_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"
+            android:scaleType="centerInside"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/singer_right_arm_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"
+            android:scaleType="centerInside"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/singer_torso_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,38 +46,12 @@
             android:scaleType="centerInside"/>
 
         <FrameLayout
-            android:id="@+id/body_container"
+            android:id="@+id/head"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_left_arm_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:scaleType="centerInside"/>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_right_arm_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:scaleType="centerInside"/>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_torso_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"
-                android:scaleType="centerInside"/>
-
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_head_view"
+                android:id="@+id/singer_under_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -61,27 +61,36 @@
             <View
                 android:id="@+id/eyebrow"
                 android:layout_width="50dp"
-                android:layout_height="8dp"
+                android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:background="#FC9B9B"
-                android:visibility="gone">
+                android:visibility="gone"/>
 
-            </View>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/singer_upper_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:scaleType="centerInside"/>
+
         </FrameLayout>
 
-        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-            android:layout_width="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="50dp"
-            android:layout_height="300dp">
-
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                android:id="@+id/seek_bar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:splitTrack="false"
-                app:seekBarRotation="CW270"/> <!-- Rotation: CW90 or CW270 -->
-        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
     </FrameLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="50dp">
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:splitTrack="false"
+            app:seekBarRotation="CW270"/> <!-- Rotation: CW90 or CW270 -->
+    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+</FrameLayout>
+

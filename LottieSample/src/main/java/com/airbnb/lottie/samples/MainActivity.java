@@ -2,19 +2,25 @@ package com.airbnb.lottie.samples;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 
 import com.airbnb.lottie.LottieAnimationView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
   // right arm
   LottieAnimationView rightArm;
   // head
-  LottieAnimationView headView;
+  LottieAnimationView underHead;
+  LottieAnimationView upperHead;
+
+  FrameLayout headView;
 
   AppCompatSeekBar seekBar;
 
@@ -50,25 +59,33 @@ public class MainActivity extends AppCompatActivity {
     shoesView = (LottieAnimationView) findViewById(R.id.singer_shoes_view);
     leftArm = (LottieAnimationView) findViewById(R.id.singer_left_arm_view);
     rightArm = (LottieAnimationView) findViewById(R.id.singer_right_arm_view);
-    headView = (LottieAnimationView) findViewById(R.id.singer_head_view);
+    underHead = (LottieAnimationView) findViewById(R.id.singer_under_head);
+    upperHead = (LottieAnimationView) findViewById(R.id.singer_upper_head);
 
     containerView = (FrameLayout) findViewById(R.id.body_container);
+    headView = (FrameLayout) findViewById(R.id.head);
 
     eyebrow = findViewById(R.id.eyebrow);
 
     seekBar = (AppCompatSeekBar) findViewById(R.id.seek_bar);
 
-    torsoView.setAnimation("singer_torso.json");
-    shoesView.setAnimation("singer_shoes.json");
-    leftArm.setAnimation("singer_left_arm.json");
-    rightArm.setAnimation("singer_right_arm.json");
-    headView.setAnimation("singer_head.json");
+    torsoView.setAnimation("data.json");
+    // shoesView.setAnimation("singer_shoes.json");
+    // leftArm.setAnimation("singer_left_arm.json");
+    // rightArm.setAnimation("singer_right_arm.json");
+    //
+    // underHead.setAnimation("singer_head.json");
+    // underHead.setAnimation("singer_under_head.json");
+    // upperHead.setAnimation("singer_upper_head.json");
 
     addIdleAnimations();
 
 
-    updateEyeBrowPosition();
-
+    new Handler().postDelayed(new Runnable() {
+      @Override public void run() {
+        updateEyeBrowPosition();
+      }
+    }, 2000);
 
     seekBar.setProgress((int) currentProgress);
 
@@ -77,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onAnimationUpdate(ValueAnimator animation) {
             currentProgress = animation.getAnimatedFraction() * 100;
-            seekBar.setProgress((int) currentProgress);
+            // seekBar.setProgress((int) currentProgress);
             updateEyeBrowPosition();
           }
         });
@@ -89,11 +106,12 @@ public class MainActivity extends AppCompatActivity {
         if (!torsoView.isAnimating()) {
           currentProgress = progress * 5;
           torsoView.setProgress(currentProgress / 100f);
-          shoesView.setProgress(currentProgress / 100f);
-          leftArm.setProgress(currentProgress / 100f);
-          rightArm.setProgress(currentProgress / 100f);
-          headView.setProgress(currentProgress / 100f);
-          updateEyeBrowPosition();
+          // shoesView.setProgress(currentProgress / 100f);
+          // leftArm.setProgress(currentProgress / 100f);
+          // rightArm.setProgress(currentProgress / 100f);
+          // underHead.setProgress(currentProgress / 100f);
+          // upperHead.setProgress(currentProgress / 100f);
+          // updateEyeBrowPosition();
         }
       }
 
@@ -247,15 +265,17 @@ public class MainActivity extends AppCompatActivity {
     // Log.e(TAG, "updateEyeBrowPosition progress: " + currentProgress);
     //
     // float[] bottomPositions = {
-    //     219.0f, 72.2f, 72.2f, 72.5f, 72.2f,
-    //     72.8f, 72.8f, 73.2f, 75.2f, 76.8f,
-    //     79.5f, 82.5f, 85.8f, 90.2f, 93.5f,
-    //     98.5f, 102.5f, 105.5f, 110.5f, 113.5f};
+    //     220f, 220f, 220f, 220f, 220f,
+    //     220f, 220f, 220f, 226f, 230f,
+    //     240f, 245f, 260f, 270f, 285f,
+    //     295f, 310f, 315f, 325f, 340f};
     //
     // int position = (int) (currentProgress / 5 - 1);
     //
     // Log.e(TAG, "updateEyeBrowPosition: position" + position);
     // float bottom = bottomPositions[position > 0 ? position : 0] * torsoView.getScale();
+    //
+    // Log.e(TAG, "updateEyeBrowPosition: bottom" + bottom );
     // params.setMargins(params.leftMargin, params.topMargin, params.rightMargin,
     //     (int) dipToPixels(bottom));
     //
@@ -265,11 +285,12 @@ public class MainActivity extends AppCompatActivity {
   private void playSingleBlinkAnimationAndAllowDoubleBlink() {
     final ValueAnimator animator = ValueAnimator.ofInt(0, 100);
     animator.setDuration(4000);
+    animator.setInterpolator(new LinearInterpolator());
     animator.setRepeatCount(ValueAnimator.INFINITE);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        float progress = valueAnimator.getAnimatedFraction();
-        if (progress > 0.95) {
+        Integer progress = (Integer) valueAnimator.getAnimatedValue();
+        if (progress > 95) {
           eyebrow.setVisibility(View.VISIBLE);
         } else {
           eyebrow.setVisibility(View.GONE);
@@ -326,11 +347,11 @@ public class MainActivity extends AppCompatActivity {
 
 
   private void addIdleAnimations() {
-    addTorsoWobbleAnimation();
+    // addTorsoWobbleAnimation();
     // playSingleBlinkAnimationAndAllowDoubleBlink();
 
-    addArmAnimation();
-    addHeadWobbleAnimation();
+    // addArmAnimation();
+    // addHeadWobbleAnimation();
 
   }
 
