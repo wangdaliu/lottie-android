@@ -6,21 +6,15 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 
 import com.airbnb.lottie.LottieAnimationView;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     underHead = (LottieAnimationView) findViewById(R.id.singer_under_head);
     upperHead = (LottieAnimationView) findViewById(R.id.singer_upper_head);
 
+    torsoView.useExperimentalHardwareAcceleration();
+    shoesView.useExperimentalHardwareAcceleration();
+    leftArm.useExperimentalHardwareAcceleration();
+    rightArm.useExperimentalHardwareAcceleration();
+    underHead.useExperimentalHardwareAcceleration();
+    upperHead.useExperimentalHardwareAcceleration();
+
     containerView = (FrameLayout) findViewById(R.id.body_container);
     headView = (FrameLayout) findViewById(R.id.head);
 
@@ -69,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
     seekBar = (AppCompatSeekBar) findViewById(R.id.seek_bar);
 
-    torsoView.setAnimation("data.json");
-    // shoesView.setAnimation("singer_shoes.json");
-    // leftArm.setAnimation("singer_left_arm.json");
-    // rightArm.setAnimation("singer_right_arm.json");
-    //
-    // underHead.setAnimation("singer_head.json");
+    torsoView.setAnimation("singer_torso.json");
+    shoesView.setAnimation("singer_shoes.json");
+    leftArm.setAnimation("singer_left_arm.json");
+    rightArm.setAnimation("singer_right_arm.json");
+
+    underHead.setAnimation("singer_head.json");
     // underHead.setAnimation("singer_under_head.json");
     // upperHead.setAnimation("singer_upper_head.json");
 
@@ -106,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
         if (!torsoView.isAnimating()) {
           currentProgress = progress * 5;
           torsoView.setProgress(currentProgress / 100f);
-          // shoesView.setProgress(currentProgress / 100f);
-          // leftArm.setProgress(currentProgress / 100f);
-          // rightArm.setProgress(currentProgress / 100f);
-          // underHead.setProgress(currentProgress / 100f);
+          shoesView.setProgress(currentProgress / 100f);
+          leftArm.setProgress(currentProgress / 100f);
+          rightArm.setProgress(currentProgress / 100f);
+          underHead.setProgress(currentProgress / 100f);
           // upperHead.setProgress(currentProgress / 100f);
           // updateEyeBrowPosition();
         }
@@ -126,136 +127,15 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void addTorsoWobbleAnimation() {
-    Animation anim = new RotateAnimation(0f, 2f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.7f);
-    anim.setFillAfter(true);
-    anim.setDuration(1000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateLeft();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    containerView.startAnimation(anim);
+    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
+        R.anim.shake_troso);
+    containerView.startAnimation(shakeAnim);
   }
-
-  private void rotateLeft() {
-    Animation anim = new RotateAnimation(2f, -2f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.7f);
-    anim.setFillAfter(true);
-    anim.setDuration(2000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateRight();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    containerView.startAnimation(anim);
-  }
-
-  private void rotateRight() {
-    Animation anim = new RotateAnimation(-2f, 2f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.7f);
-    anim.setFillAfter(true);
-    anim.setDuration(2000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateLeft();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    containerView.startAnimation(anim);
-  }
-
 
   private void addHeadWobbleAnimation() {
-    Animation anim = new RotateAnimation(0f, 1f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.2f);
-    anim.setFillAfter(true);
-    anim.setDuration(1000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateHeadLeft();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    headView.startAnimation(anim);
-  }
-
-  private void rotateHeadLeft() {
-    Animation anim = new RotateAnimation(1f, -1f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.2f);
-    anim.setFillAfter(true);
-    anim.setDuration(2000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateHeadRight();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    headView.startAnimation(anim);
-  }
-
-  private void rotateHeadRight() {
-    Animation anim = new RotateAnimation(-1f, 1f, Animation.RELATIVE_TO_SELF, 0.5f,
-        Animation.RELATIVE_TO_SELF, 0.2f);
-    anim.setFillAfter(true);
-    anim.setDuration(2000);
-    anim.setInterpolator(new AccelerateInterpolator());
-    anim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        rotateHeadLeft();
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    headView.startAnimation(anim);
+    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
+        R.anim.shake_head);
+    headView.startAnimation(shakeAnim);
   }
 
   private void updateEyeBrowPosition() {
@@ -300,58 +180,31 @@ public class MainActivity extends AppCompatActivity {
     animator.start();
   }
 
-  private void shakeTop(final View view) {
-    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
-        R.anim.shake_top);
-
-    shakeAnim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        shakeBottom(view);
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    view.startAnimation(shakeAnim);
+  private void shakeArm(final View view) {
+    Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
+        R.anim.shake_arm);
+    view.startAnimation(anim);
   }
 
-  private void shakeBottom(final View view) {
-    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
-        R.anim.shake_bottom);
 
-    shakeAnim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        shakeTop(view);
-      }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    view.startAnimation(shakeAnim);
-  }
-
-  private void addArmAnimation() {
-    shakeTop(leftArm);
-    shakeTop(rightArm);
+  private void addArmWobbleAnimation() {
+    shakeArm(leftArm);
+    shakeArm(rightArm);
   }
 
 
   private void addIdleAnimations() {
-    // addTorsoWobbleAnimation();
+    // torso
+    addTorsoWobbleAnimation();
+
+    // head
+    addHeadWobbleAnimation();
+
+    // arm
+    addArmWobbleAnimation();
+
     // playSingleBlinkAnimationAndAllowDoubleBlink();
 
-    // addArmAnimation();
-    // addHeadWobbleAnimation();
 
   }
 

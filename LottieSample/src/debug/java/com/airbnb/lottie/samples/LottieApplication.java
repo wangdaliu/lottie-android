@@ -1,18 +1,25 @@
 package com.airbnb.lottie.samples;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.Gravity;
 
 import com.airbnb.lottie.L;
 import com.codemonkeylabs.fpslibrary.FrameDataCallback;
 import com.codemonkeylabs.fpslibrary.TinyDancer;
 
+import jp.wasabeef.takt.Audience;
+import jp.wasabeef.takt.Seat;
+import jp.wasabeef.takt.Takt;
+
 public class LottieApplication extends Application implements ILottieApplication {
   private int droppedFrames;
   private long droppedFramesStartingNs;
   private long currentFrameNs;
+
   @Override public void onCreate() {
     super.onCreate();
     AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -30,6 +37,8 @@ public class LottieApplication extends Application implements ILottieApplication
           })
           .show(this);
     }
+
+    Takt.stock(this).play();
   }
 
   @Override public void startRecordingDroppedFrames() {
@@ -42,5 +51,11 @@ public class LottieApplication extends Application implements ILottieApplication
     Pair<Integer, Long> ret = new Pair<>(droppedFrames, duration);
     droppedFrames = 0;
     return ret;
+  }
+
+
+  @Override public void onTerminate() {
+    Takt.finish();
+    super.onTerminate();
   }
 }
