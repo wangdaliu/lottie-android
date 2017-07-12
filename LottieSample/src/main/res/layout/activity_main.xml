@@ -23,15 +23,7 @@
 
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/singer_left_arm_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:duplicateParentState="true"
-            android:scaleType="centerInside"/>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/singer_right_arm_view"
+            android:id="@+id/singer_arm_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

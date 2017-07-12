@@ -24,10 +24,8 @@ public class MainActivity extends AppCompatActivity {
   LottieAnimationView torsoView;
   // shoes
   LottieAnimationView shoesView;
-  // left arm
-  LottieAnimationView leftArm;
-  // right arm
-  LottieAnimationView rightArm;
+  // arm
+  LottieAnimationView armView;
   // head
   LottieAnimationView underHead;
   LottieAnimationView upperHead;
@@ -52,15 +50,13 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     torsoView = (LottieAnimationView) findViewById(R.id.singer_torso_view);
     shoesView = (LottieAnimationView) findViewById(R.id.singer_shoes_view);
-    leftArm = (LottieAnimationView) findViewById(R.id.singer_left_arm_view);
-    rightArm = (LottieAnimationView) findViewById(R.id.singer_right_arm_view);
+    armView = (LottieAnimationView) findViewById(R.id.singer_arm_view);
     underHead = (LottieAnimationView) findViewById(R.id.singer_under_head);
     upperHead = (LottieAnimationView) findViewById(R.id.singer_upper_head);
 
     torsoView.useExperimentalHardwareAcceleration();
     shoesView.useExperimentalHardwareAcceleration();
-    leftArm.useExperimentalHardwareAcceleration();
-    rightArm.useExperimentalHardwareAcceleration();
+    armView.useExperimentalHardwareAcceleration();
     underHead.useExperimentalHardwareAcceleration();
     upperHead.useExperimentalHardwareAcceleration();
 
@@ -73,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     torsoView.setAnimation("singer_torso.json");
     shoesView.setAnimation("singer_shoes.json");
-    leftArm.setAnimation("singer_left_arm.json");
-    rightArm.setAnimation("singer_right_arm.json");
+    armView.setAnimation("singer_arms.json");
 
     underHead.setAnimation("singer_under_head.json");
     upperHead.setAnimation("singer_upper_head.json");
@@ -98,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
           currentProgress = progress * 5;
           torsoView.setProgress(currentProgress / 100f);
           shoesView.setProgress(currentProgress / 100f);
-          leftArm.setProgress(currentProgress / 100f);
-          rightArm.setProgress(currentProgress / 100f);
+          armView.setProgress(currentProgress / 100f);
           underHead.setProgress(currentProgress / 100f);
           upperHead.setProgress(currentProgress / 100f);
           updateEyeBrowPosition();
@@ -130,26 +124,26 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateEyeBrowPosition() {
 
-    // FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) eyebrow.getLayoutParams();
-    //
-    // Log.e(TAG, "updateEyeBrowPosition progress: " + currentProgress);
-    //
-    // float[] bottomPositions = {
-    //     220f, 220f, 220f, 220f, 220f,
-    //     220f, 220f, 220f, 226f, 230f,
-    //     240f, 245f, 260f, 270f, 285f,
-    //     295f, 310f, 315f, 325f, 340f};
-    //
-    // int position = (int) (currentProgress / 5 - 1);
-    //
-    // Log.e(TAG, "updateEyeBrowPosition: position" + position);
-    // float bottom = bottomPositions[position > 0 ? position : 0] * torsoView.getScale();
-    //
-    // Log.e(TAG, "updateEyeBrowPosition: bottom" + bottom );
-    // params.setMargins(params.leftMargin, params.topMargin, params.rightMargin,
-    //     (int) dipToPixels(bottom));
-    //
-    // eyebrow.setLayoutParams(params);
+    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) eyebrow.getLayoutParams();
+
+    Log.e(TAG, "updateEyeBrowPosition progress: " + currentProgress);
+
+    float[] bottomPositions = {
+        220f, 220f, 220f, 220f, 220f,
+        220f, 220f, 220f, 226f, 230f,
+        240f, 245f, 260f, 270f, 285f,
+        295f, 310f, 315f, 325f, 340f};
+
+    int position = (int) (currentProgress / 5 - 1);
+
+    Log.e(TAG, "updateEyeBrowPosition: position" + position);
+    float bottom = bottomPositions[position > 0 ? position : 0] * torsoView.getScale();
+
+    Log.e(TAG, "updateEyeBrowPosition: bottom" + bottom );
+    params.setMargins(params.leftMargin, params.topMargin, params.rightMargin,
+        (int) dipToPixels(bottom));
+
+    eyebrow.setLayoutParams(params);
   }
 
   private void playSingleBlinkAnimationAndAllowDoubleBlink() {
@@ -170,16 +164,10 @@ public class MainActivity extends AppCompatActivity {
     animator.start();
   }
 
-  private void shakeArm(final View view) {
+  private void addArmWobbleAnimation() {
     Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
         R.anim.shake_arm);
-    view.startAnimation(anim);
-  }
-
-
-  private void addArmWobbleAnimation() {
-    shakeArm(leftArm);
-    shakeArm(rightArm);
+    armView.startAnimation(anim);
   }
 
 
@@ -193,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     // arm
     addArmWobbleAnimation();
 
-    // playSingleBlinkAnimationAndAllowDoubleBlink();
+    playSingleBlinkAnimationAndAllowDoubleBlink();
 
 
   }
