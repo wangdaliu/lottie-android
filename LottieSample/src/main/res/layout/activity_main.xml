@@ -90,6 +90,7 @@
             android:id="@+id/seek_bar"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:thumbOffset="0dp"
             android:splitTrack="false"
             android:thumb="@drawable/seek_style"
             app:seekBarRotation="CW270"/> <!-- Rotation: CW90 or CW270 -->
