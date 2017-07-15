@@ -1849,25 +1849,6 @@
               "mn": "ADBE Vector Graphic - Stroke"
             },
             {
-              "ty": "fl",
-              "c": {
-                "a": 0,
-                "k": [
-                  1,
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "o": {
-                "a": 0,
-                "k": 100
-              },
-              "r": 1,
-              "nm": "Fill 1",
-              "mn": "ADBE Vector Graphic - Fill"
-            },
-            {
               "ty": "tr",
               "p": {
                 "a": 0,
@@ -2139,25 +2120,6 @@
               "mn": "ADBE Vector Graphic - Stroke"
             },
             {
-              "ty": "fl",
-              "c": {
-                "a": 0,
-                "k": [
-                  1,
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "o": {
-                "a": 0,
-                "k": 100
-              },
-              "r": 1,
-              "nm": "Fill 1",
-              "mn": "ADBE Vector Graphic - Fill"
-            },
-            {
               "ty": "tr",
               "p": {
                 "a": 0,
@@ -2427,25 +2389,6 @@
               "lj": 2,
               "nm": "Stroke 1",
               "mn": "ADBE Vector Graphic - Stroke"
-            },
-            {
-              "ty": "fl",
-              "c": {
-                "a": 0,
-                "k": [
-                  1,
-                  1,
-                  1,
-                  1
-                ]
-              },
-              "o": {
-                "a": 0,
-                "k": 100
-              },
-              "r": 1,
-              "nm": "Fill 1",
-              "mn": "ADBE Vector Graphic - Fill"
             },
             {
               "ty": "tr",
@@ -3457,7 +3400,7 @@
     },
     {
       "ddd": 0,
-      "ind": 33,
+      "ind": 29,
       "ty": 4,
       "nm": "RIGHT LAPEL Outlines",
       "ks": {
@@ -3693,7 +3636,7 @@
     },
     {
       "ddd": 0,
-      "ind": 34,
+      "ind": 30,
       "ty": 4,
       "nm": "LEFT LAPEL Outlines",
       "ks": {
