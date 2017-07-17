@@ -9,11 +9,11 @@
   "ddd": 0,
   "assets": [
     {
-      "id": "comp_8",
+      "id": "comp_0",
       "layers": [
         {
           "ddd": 0,
-          "ind": 5,
+          "ind": 4,
           "ty": 4,
           "nm": "GOATEE Outlines",
           "ks": {
@@ -218,7 +218,7 @@
         },
         {
           "ddd": 0,
-          "ind": 6,
+          "ind": 5,
           "ty": 4,
           "nm": "RIGHT HANDLEBAR Outlines",
           "ks": {
@@ -469,7 +469,7 @@
         },
         {
           "ddd": 0,
-          "ind": 7,
+          "ind": 6,
           "ty": 4,
           "nm": "LEFT HANDLEBAR Outlines",
           "ks": {
@@ -720,7 +720,7 @@
         },
         {
           "ddd": 0,
-          "ind": 8,
+          "ind": 7,
           "ty": 4,
           "nm": "MOUSTACHE Outlines",
           "ks": {
@@ -971,7 +971,7 @@
         },
         {
           "ddd": 0,
-          "ind": 34,
+          "ind": 33,
           "ty": 4,
           "nm": "EYEBROW LEFT Outlines",
           "ks": {
@@ -1227,7 +1227,7 @@
         },
         {
           "ddd": 0,
-          "ind": 35,
+          "ind": 34,
           "ty": 4,
           "nm": "EYEBROW RIGHT Outlines",
           "ks": {
@@ -1490,7 +1490,7 @@
       "ind": 2,
       "ty": 0,
       "nm": "HEAD",
-      "refId": "comp_8",
+      "refId": "comp_0",
       "ks": {
         "o": {
           "a": 0,

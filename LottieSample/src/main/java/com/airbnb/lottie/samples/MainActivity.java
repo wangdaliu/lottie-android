@@ -10,8 +10,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
   // static String FILE_NAME = "data.json";
 
-  FrameLayout containerView;
+  FrameLayout bodyView;
   View eyebrow;
 
   float currentProgress = 0f;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     underHead.useExperimentalHardwareAcceleration();
     upperHead.useExperimentalHardwareAcceleration();
 
-    containerView = (FrameLayout) findViewById(R.id.body_container);
+    bodyView = (FrameLayout) findViewById(R.id.body_container);
     headView = (FrameLayout) findViewById(R.id.head);
 
     eyebrow = findViewById(R.id.eyebrow);
@@ -110,43 +111,31 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void addTorsoWobbleAnimation() {
-    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
-        R.anim.shake_troso);
-    containerView.startAnimation(shakeAnim);
-  }
-
-  private void addHeadWobbleAnimation() {
-    Animation shakeAnim = AnimationUtils.loadAnimation(getApplicationContext(),
-        R.anim.shake_head);
-    headView.startAnimation(shakeAnim);
-  }
-
   private void updateEyeBrowPosition() {
 
-    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) eyebrow.getLayoutParams();
-
-    Log.e(TAG, "updateEyeBrowPosition progress: " + currentProgress);
-
-    float[] bottomPositions = {
-        220f, 220f, 220f, 220f, 220f,
-        220f, 220f, 220f, 226f, 230f,
-        240f, 245f, 260f, 270f, 285f,
-        295f, 310f, 315f, 325f, 340f};
-
-    int position = (int) (currentProgress / 5 - 1);
-
-    Log.e(TAG, "updateEyeBrowPosition: position" + position);
-    float bottom = bottomPositions[position > 0 ? position : 0] * torsoView.getScale();
-
-    Log.e(TAG, "updateEyeBrowPosition: bottom" + bottom );
-    params.setMargins(params.leftMargin, params.topMargin, params.rightMargin,
-        (int) dipToPixels(bottom));
-
-    eyebrow.setLayoutParams(params);
+    // FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) eyebrow.getLayoutParams();
+    //
+    // Log.e(TAG, "updateEyeBrowPosition progress: " + currentProgress);
+    //
+    // float[] bottomPositions = {
+    //     220f, 220f, 220f, 220f, 220f,
+    //     220f, 220f, 220f, 226f, 230f,
+    //     240f, 245f, 260f, 270f, 285f,
+    //     295f, 310f, 315f, 325f, 340f};
+    //
+    // int position = (int) (currentProgress / 5 - 1);
+    //
+    // Log.e(TAG, "updateEyeBrowPosition: position" + position);
+    // float bottom = bottomPositions[position > 0 ? position : 0] * torsoView.getScale();
+    //
+    // Log.e(TAG, "updateEyeBrowPosition: bottom" + bottom );
+    // params.setMargins(params.leftMargin, params.topMargin, params.rightMargin,
+    //     (int) dipToPixels(bottom));
+    //
+    // eyebrow.setLayoutParams(params);
   }
 
-  private void playSingleBlinkAnimationAndAllowDoubleBlink() {
+  private void addBlinkAnimation() {
     final ValueAnimator animator = ValueAnimator.ofInt(0, 100);
     animator.setDuration(4000);
     animator.setInterpolator(new LinearInterpolator());
@@ -164,25 +153,72 @@ public class MainActivity extends AppCompatActivity {
     animator.start();
   }
 
-  private void addArmWobbleAnimation() {
-    Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
-        R.anim.shake_arm);
-    armView.startAnimation(anim);
+  private static float WOBBLE_DURATION = 3.0f;
+
+  private float popAnimationsDuration() {
+    return (float) (WOBBLE_DURATION - currentProgress / 100f * WOBBLE_DURATION * 0.6);
+  }
+
+  /**
+   * update animation duration when change progress
+   */
+  private void updateAnimDuration() {
+    float wobbleDuration = this.popAnimationsDuration();
+
+    bodyView.getAnimation().setDuration((long) (wobbleDuration * 1000));
+    headView.getAnimation().setDuration((long) (0.25 * wobbleDuration * 1000));
+    armView.getAnimation().setDuration((long) (wobbleDuration * 1000));
   }
 
 
   private void addIdleAnimations() {
-    // torso
-    addTorsoWobbleAnimation();
+    float wobbleDuration = this.popAnimationsDuration();
+    Log.e(TAG, "wobbleDuration: " + wobbleDuration);
 
-    // head
-    addHeadWobbleAnimation();
+    // body wobbling
+    float wobbleAngle = 3.0f;
 
-    // arm
-    addArmWobbleAnimation();
+    RotateAnimation torsoAnim =
+        new RotateAnimation(-wobbleAngle, wobbleAngle, Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF, 0.7f);
+    torsoAnim.setRepeatCount(Animation.INFINITE);
+    torsoAnim.setRepeatMode(Animation.REVERSE);
+    torsoAnim.setDuration((long) (wobbleDuration * 1000));
+    bodyView.startAnimation(torsoAnim);
 
-    playSingleBlinkAnimationAndAllowDoubleBlink();
+    // // head rotation
+    float headRotationAngle = 2.0f;
 
+    RotateAnimation headAnim =
+        new RotateAnimation(0, 4,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF, 0.4f);
+    headAnim.setRepeatCount(Animation.INFINITE);
+    headAnim.setRepeatMode(Animation.REVERSE);
+    headAnim.setDuration((long) (wobbleDuration * 1000));
+    headView.startAnimation(headAnim);
+
+    // arms
+    float armsTranslationAmount = 8.0f;
+
+    TranslateAnimation armAnim = new TranslateAnimation(
+        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
+        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF,
+        armsTranslationAmount
+    );
+    armAnim.setRepeatCount(Animation.INFINITE);
+    armAnim.setRepeatMode(Animation.REVERSE);
+    armAnim.setDuration((long) (wobbleDuration * 1000));
+    armView.startAnimation(armAnim);
+
+    // tongue translation
+    // TODO
+
+
+    // blink animation
+    // addBlinkAnimation();
 
   }
 
@@ -190,6 +226,16 @@ public class MainActivity extends AppCompatActivity {
   public void onStop() {
     torsoView.cancelAnimation();
     shoesView.cancelAnimation();
+    armView.cancelAnimation();
+    underHead.cancelAnimation();
+    upperHead.cancelAnimation();
+
+    torsoView.clearAnimation();
+    shoesView.clearAnimation();
+    armView.clearAnimation();
+    underHead.clearAnimation();
+    upperHead.clearAnimation();
+
     super.onStop();
   }
 
