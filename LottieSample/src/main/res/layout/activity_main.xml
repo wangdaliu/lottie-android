@@ -1,91 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    android:id="@+id/container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDDACE">
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/singer_shoes_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:duplicateParentState="true"
-        android:scaleType="centerInside"/>
+    android:background="#EDDACE"
+    android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/body_container"
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/singer_arm_view"
+            android:id="@+id/singer_shoes_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:duplicateParentState="true"
-            android:scaleType="centerInside"/>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/singer_torso_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:duplicateParentState="true"
             android:scaleType="centerInside"/>
 
         <FrameLayout
-            android:id="@+id/head"
+            android:id="@+id/body_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_under_head"
+                android:id="@+id/singer_arm_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:duplicateParentState="true"
                 android:scaleType="centerInside"/>
 
-            <View
-                android:id="@+id/eyebrow"
-                android:layout_width="50dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="#FC9B9B"
-                android:visibility="gone"/>
-
-
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/singer_upper_head"
+                android:id="@+id/singer_torso_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:duplicateParentState="true"
                 android:scaleType="centerInside"/>
+
+            <FrameLayout
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/singer_under_head"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:rotation="8"
+                    android:translationX="-4dp"
+                    android:scaleType="centerInside"/>
+
+                <View
+                    android:id="@+id/eyebrow"
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:background="#FC9B9B"/>
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/singer_upper_head"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:rotation="8"
+                    android:translationX="-4dp"
+                    android:scaleType="centerInside"/>
+
+            </FrameLayout>
+
 
         </FrameLayout>
 
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="50dp">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_style"
+                android:thumbOffset="0dp"
+                app:seekBarRotation="CW270"/> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
     </FrameLayout>
 
-    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="50dp">
 
-        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-            android:id="@+id/seek_bar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:thumbOffset="0dp"
-            android:splitTrack="false"
-            android:thumb="@drawable/seek_style"
-            app:seekBarRotation="CW270"/> <!-- Rotation: CW90 or CW270 -->
-    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <Button
+            android:id="@+id/fine_tune"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:width="100dp"
+            android:text="Fine Tune"/>
+    </RelativeLayout>
+
+</LinearLayout>
 
