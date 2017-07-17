@@ -229,9 +229,9 @@ public class MainActivity extends AppCompatActivity {
     eyebrow.setPivotY(0);
 
     ObjectAnimator downAnimation = ObjectAnimator.ofFloat(eyebrow, "scaleY", 0f, 1f);
-    downAnimation.setDuration(500);
+    downAnimation.setDuration(300);
     ObjectAnimator upAnimation = ObjectAnimator.ofFloat(eyebrow, "scaleY", 1f, 0f);
-    upAnimation.setDuration(500);
+    upAnimation.setDuration(300);
 
     AnimatorSet animatorSet = new AnimatorSet();
     animatorSet.setStartDelay(3000);
