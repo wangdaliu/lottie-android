@@ -241,6 +241,13 @@ public class MainActivity extends AppCompatActivity {
         super.onAnimationEnd(animation);
         addBlinkAnimation();
       }
+
+      @Override public void onAnimationStart(Animator animation) {
+        super.onAnimationStart(animation);
+        if (eyebrow.getVisibility() == View.GONE) {
+          eyebrow.setVisibility(View.VISIBLE);
+        }
+      }
     });
     animatorSet.start();
   }
