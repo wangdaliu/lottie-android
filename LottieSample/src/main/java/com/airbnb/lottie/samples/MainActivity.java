@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
     underHead.useExperimentalHardwareAcceleration();
     upperHead.useExperimentalHardwareAcceleration();
 
+    torsoView.enableMergePathsForKitKatAndAbove(true);
+    shoesView.enableMergePathsForKitKatAndAbove(true);
+    armView.enableMergePathsForKitKatAndAbove(true);
+    underHead.enableMergePathsForKitKatAndAbove(true);
+    upperHead.enableMergePathsForKitKatAndAbove(true);
+
     bodyView = (FrameLayout) findViewById(R.id.body_container);
     headView = (FrameLayout) findViewById(R.id.head);
 
@@ -98,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
           underHead.setProgress(currentProgress / 100f);
           upperHead.setProgress(currentProgress / 100f);
           updateEyeBrowPosition();
+
+          updateAnimDuration();
         }
       }
 
@@ -166,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     float wobbleDuration = this.popAnimationsDuration();
 
     bodyView.getAnimation().setDuration((long) (wobbleDuration * 1000));
-    headView.getAnimation().setDuration((long) (0.25 * wobbleDuration * 1000));
+    headView.getAnimation().setDuration((long) (wobbleDuration * 1000));
     armView.getAnimation().setDuration((long) (wobbleDuration * 1000));
   }
 
@@ -191,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     float headRotationAngle = 2.0f;
 
     RotateAnimation headAnim =
-        new RotateAnimation(0, 4,
+        new RotateAnimation(-headRotationAngle, headRotationAngle,
             Animation.RELATIVE_TO_SELF,
             0.5f,
             Animation.RELATIVE_TO_SELF, 0.4f);
@@ -201,11 +209,11 @@ public class MainActivity extends AppCompatActivity {
     headView.startAnimation(headAnim);
 
     // arms
-    float armsTranslationAmount = 8.0f;
+    float armsTranslationAmount = 18;
 
     TranslateAnimation armAnim = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF,
+        0f, 0f,
+         0f,
         armsTranslationAmount
     );
     armAnim.setRepeatCount(Animation.INFINITE);
