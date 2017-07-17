@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
     new Handler().postDelayed(new Runnable() {
       @Override public void run() {
+        if (eyebrow.getVisibility() == View.GONE) {
+          eyebrow.setVisibility(View.VISIBLE);
+        }
+
         updateEyeBrowPosition();
       }
     }, 2000);
@@ -240,13 +244,6 @@ public class MainActivity extends AppCompatActivity {
       @Override public void onAnimationEnd(Animator animation) {
         super.onAnimationEnd(animation);
         addBlinkAnimation();
-      }
-
-      @Override public void onAnimationStart(Animator animation) {
-        super.onAnimationStart(animation);
-        if (eyebrow.getVisibility() == View.GONE) {
-          eyebrow.setVisibility(View.VISIBLE);
-        }
       }
     });
     animatorSet.start();
